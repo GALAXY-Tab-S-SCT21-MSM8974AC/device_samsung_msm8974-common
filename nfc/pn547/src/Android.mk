@@ -17,6 +17,9 @@
 
 LOCAL_PATH := $(call my-dir)
 
+# 機種が自身の版のファームウェアを同梱する場合は、同じ配置先へのルールが衝突するためモジュールを定義しない。
+ifneq ($(TARGET_PROVIDES_PN547_FW),true)
+
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := libpn547_fw.c
@@ -27,3 +30,5 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_PACK_MODULE_RELOCATIONS := false
 
 include $(BUILD_SHARED_LIBRARY)
+
+endif
