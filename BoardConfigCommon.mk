@@ -68,6 +68,10 @@ TARGET_FS_CONFIG_GEN += $(COMMON_PATH)/config.fs
 
 # HIDL
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/manifest.xml
+# タッチの HAL が登録するインターフェースは、機種の sysfs の有無によって異なる。VINTF は同じ HAL の同じ版を
+# 複数の断片に分けて宣言できないため、機種は TARGET_TOUCH_HAL_MANIFEST で宣言の全体を置き換える。
+TARGET_TOUCH_HAL_MANIFEST ?= $(COMMON_PATH)/manifest-touch.xml
+DEVICE_MANIFEST_FILE += $(TARGET_TOUCH_HAL_MANIFEST)
 DEVICE_MATRIX_FILE := $(COMMON_PATH)/compatibility_matrix.xml
 PRODUCT_ENFORCE_VINTF_MANIFEST_OVERRIDE := true
 
