@@ -18,8 +18,14 @@
 $(call inherit-product, device/samsung/msm8974-common/nfc/product.mk)
 
 PRODUCT_PACKAGES += \
-    android.hardware.nfc@1.0-impl \
+    android.hardware.nfc@1.0-impl
+
+# PN547 のファームウェアの版はチップの系統ごとに異なり、HAL は同梱の版がチップと異なると書き換えを試みる。
+# 既定は Galaxy S5 の版（01.1F）をソースからビルドし、異なる系統のチップを持つ機種は自身の版を同梱する。
+ifneq ($(TARGET_PROVIDES_PN547_FW),true)
+PRODUCT_PACKAGES += \
     libpn547_fw
+endif
 
 PRODUCT_COPY_FILES += \
     device/samsung/msm8974-common/nfc/pn547/libnfc-nci.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nci.conf \
